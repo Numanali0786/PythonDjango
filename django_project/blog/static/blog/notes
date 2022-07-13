@@ -1,0 +1,26 @@
+1)
+django by defAault looks in every app(ie he looks in blog app,users app) for static files(same for templates)
+but convention must be app(blog)->static->blog(to put static files)->main.css
+amd we dont need to add STATICFILES_PATH in projects setting
+only add STATIC_URL = '/ststic/'
+
+So to access the blog/main.css ,since it is in app(blog)->static->blog(to put static files)->main.css dir we only need to use
+{%load static%}
+href="{% static 'blog/main.css' %}"
+
+
+2)if we wil make a static file in project root dir(ie along with apps and manage.py) then we need to add 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'static')   //gives path of static file along with apps and manage.py
+]
+add up line in settings.py of project to tell django to look here also for static files bcs by default he looks only in apps static files
+so using STATICFILES_DIRS it will look at both places
+
+and if we if we have made a static file along with manage.py ie in projects root dir as it is in case 2 and we want to say to collect
+static files from both places and keep in another file  so we also need to run 
+an extra command python manage.py collectstatic and it will create a seprate folder to put all static file in called assets(can named anything) 
+and to make folder assets we must include STATIC_ROOT = os.path.join(BASE_DIR,'assets') in setting
+
+
+
+
